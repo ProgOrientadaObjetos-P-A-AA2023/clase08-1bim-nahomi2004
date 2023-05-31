@@ -22,12 +22,13 @@ public class Principal {
         Scanner entrada = new Scanner(System.in);
         boolean bandera = true;
         while (bandera) {
-            System.out.printf("%s\n%s\n%s\n%s\n%s\n",
+            System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n",
                     "Opciones",
                     "1) Ingrese Club",
                     "2) Listar Club",
                     "3) Ingrese Jugador",
-                    "4) Listar Jugador");
+                    "4) Listar Jugador",
+                    "5) Verificar si el jugador existe");
             int opcion = entrada.nextInt();
             if (opcion == 1) {
                 agregarClubs();
@@ -47,7 +48,16 @@ public class Principal {
                         if (opcion == 4) {
                             verJugadores();
                         }else{
-                            System.out.println("Opción incorrecta");
+                            if (opcion == 5) {
+                                boolean jugador = verificarJugador();
+                                if (jugador) {
+                                    System.out.println("Jugador existe :D");
+                                } else {
+                                    System.out.println("Jugador no existe D:");
+                                }
+                            } else {
+                                System.out.println("Opción incorrecta");
+                            }                            
                         }
                     }
 
@@ -128,6 +138,23 @@ public class Principal {
             archivo.establecerSalida();
             archivo.cerrarArchivo();
             bandera = true;
+        }
+        return bandera;
+    }
+    
+    public static boolean verificarJugador () {
+        boolean bandera=false;
+        Scanner entrada = new Scanner (System.in);
+        System.out.println("Ingrese el nombre del jugador: ");
+        String j1 = entrada.next();
+        String nombreArchivoClub = "data/jugadores.dat";
+        LecturaSecuencialJugador lectura
+                = new LecturaSecuencialJugador(nombreArchivoClub);
+        lectura.registroBuscado(j1);
+        Jugador c = lectura.obtenerRegistroBuscado();
+                
+        if (c!=null) {
+            bandera=true;
         }
         return bandera;
     }
